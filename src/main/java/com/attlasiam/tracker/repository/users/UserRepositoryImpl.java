@@ -1,16 +1,21 @@
 package com.attlasiam.tracker.repository.users;
 
+import com.attlasiam.tracker.utils.Resetable;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-class UserRepositoryImpl implements UserRepository {
+class UserRepositoryImpl implements UserRepository, Resetable {
 
     private final Map<String, UserEntity> byEmail = new HashMap<>();
     private final Map<Long, UserEntity> byId = new HashMap<>();
     private final AtomicLong counter = new AtomicLong();
+
+    public UserRepositoryImpl() {
+        System.out.println();
+    }
 
     @Override
     public List<UserEntity> fetchAll() {
@@ -38,5 +43,12 @@ class UserRepositoryImpl implements UserRepository {
     public void update(UserEntity entity) {
         byEmail.put(entity.getEmail(), entity);
         byId.put(entity.getId(), entity);
+    }
+
+    @Override
+    public void reset() {
+        counter.set(0);
+        byEmail.clear();
+        byId.clear();
     }
 }

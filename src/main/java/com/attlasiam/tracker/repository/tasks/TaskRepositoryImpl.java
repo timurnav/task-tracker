@@ -1,12 +1,13 @@
 package com.attlasiam.tracker.repository.tasks;
 
+import com.attlasiam.tracker.utils.Resetable;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-class TaskRepositoryImpl implements TaskRepository {
+class TaskRepositoryImpl implements TaskRepository, Resetable {
 
     private final Map<Long, TaskEntity> byId = new HashMap<>();
     private final AtomicLong counter = new AtomicLong();
@@ -31,5 +32,11 @@ class TaskRepositoryImpl implements TaskRepository {
     @Override
     public void update(TaskEntity entity) {
         byId.put(entity.getId(), entity);
+    }
+
+    @Override
+    public void reset() {
+        counter.set(0);
+        byId.clear();
     }
 }
