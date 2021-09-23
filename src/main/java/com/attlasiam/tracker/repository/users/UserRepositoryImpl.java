@@ -13,10 +13,6 @@ class UserRepositoryImpl implements UserRepository, Resetable {
     private final Map<Long, UserEntity> byId = new HashMap<>();
     private final AtomicLong counter = new AtomicLong();
 
-    public UserRepositoryImpl() {
-        System.out.println();
-    }
-
     @Override
     public List<UserEntity> fetchAll() {
         return new ArrayList<>(byId.values());

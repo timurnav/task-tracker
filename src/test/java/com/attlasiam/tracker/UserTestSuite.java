@@ -17,6 +17,15 @@ public class UserTestSuite extends BaseTaskTrackerSpringContextTestSuite {
     public static final String USERS = "/users";
 
     @Test
+    public void notFound() throws Exception {
+        String errorMessage = mockMvc.perform(delete("/users/{id}", 123).accept(APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn().getResponse().getContentAsString();
+
+        Assertions.assertThat(errorMessage).isEqualTo("User not found by id 123");
+    }
+
+    @Test
     public void createUser() throws Exception {
         mockMvc.perform(get(USERS).accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
