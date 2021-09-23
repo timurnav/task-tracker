@@ -5,6 +5,7 @@ import com.attlasiam.tracker.service.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,12 +16,12 @@ public class UserController {
     private final UserService service;
 
     @PutMapping
-    public UserDTO save(@RequestBody UserDTO userDTO) {
+    public UserDTO save(@Valid @RequestBody UserDTO userDTO) {
         return service.create(userDTO);
     }
 
     @PatchMapping
-    public void update(@RequestBody UserDTO userDTO) {
+    public void update(@Valid @RequestBody UserDTO userDTO) {
         service.update(userDTO);
     }
 

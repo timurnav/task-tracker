@@ -6,6 +6,7 @@ import com.attlasiam.tracker.service.tasks.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class TaskController {
     private final TaskService service;
 
     @PutMapping
-    public TaskDTO save(@RequestBody CreateTaskRequest request) {
+    public TaskDTO save(@Valid @RequestBody CreateTaskRequest request) {
         return service.create(request);
     }
 
